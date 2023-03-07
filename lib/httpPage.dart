@@ -14,21 +14,37 @@ class HttpPage extends StatefulWidget {
 
 class _HttpPageState extends State<HttpPage> {
   @override
-  List<dynamic> arr = [];
+  List arr = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    getUsers();
+    super.initState();
+   
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Users'),
+        title: const Text('Users'),
       ),
       body: ListView.builder(
           itemCount: arr.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-                title: Text(" ${index+1} . ${arr[index]["name"]}"));
+            return Column(
+              children: [
+                
+                ListTile(
+                    title: Text(" ${index+1} . ${arr[index]["name"]}"),),
+                ElevatedButton(onPressed: (){
+                  Navigator.pushNamed(context, '/display',arguments: arr[index]['name']);
+                }, child: const Text('Click'))
+              ],
+            );
+                
           }),
-      floatingActionButton: FloatingActionButton(
-          onPressed: getUsers, child: const Icon(Icons.add)),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: getUsers, child: const Icon(Icons.add)),
     );
   }
 
